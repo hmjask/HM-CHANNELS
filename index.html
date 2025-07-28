@@ -1,127 +1,149 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <title>HM-CHANNELS | منصة المشاهدة</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #0e0e0e;
-      color: white;
-      font-family: 'Arial', sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #0e0e0e;
+      color: #ffffff;
+      font-family: 'Cairo', sans-serif;
       text-align: center;
     }
 
     header {
-      background-color: #1f1f1f;
-      padding: 20px;
-      box-shadow: 0 0 10px #000;
+      background: linear-gradient(90deg, #00ff88, #00ffd5);
+      color: #0e0e0e;
+      padding: 30px 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
 
     h1 {
+      font-size: 3em;
       margin: 0;
-      font-size: 2.5em;
-      color: #00ff88;
     }
 
-    .telegram-link a {
-      display: inline-block;
+    header p {
       margin-top: 10px;
-      padding: 10px 20px;
-      background-color: #0088cc;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
+      font-size: 1.2em;
       font-weight: bold;
     }
 
+    .telegram-link a {
+      margin-top: 15px;
+      display: inline-block;
+      background-color: #0088cc;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1em;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .telegram-link a:hover {
+      background-color: #006699;
+    }
+
     .section-title {
-      margin: 40px 0 10px;
-      font-size: 1.8em;
+      font-size: 2em;
+      margin: 50px 0 20px;
       color: #00ffd5;
+      border-bottom: 2px solid #00ff88;
+      display: inline-block;
+      padding-bottom: 5px;
     }
 
     .video-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin: 10px auto 40px;
-      max-width: 1000px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
 
     .video-card {
-      background-color: #222;
-      margin: 10px;
-      border-radius: 10px;
-      width: 300px;
-      padding: 15px;
-      box-shadow: 0 0 5px #000;
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,255,136,0.3);
     }
 
     .video-card h3 {
       color: #00ffd5;
-      margin-bottom: 10px;
+      font-size: 1.3em;
+      margin-bottom: 15px;
     }
 
     .video-card a {
-      display: inline-block;
-      padding: 10px 20px;
       background-color: #00ff88;
       color: #000;
+      padding: 10px 20px;
+      border-radius: 6px;
       font-weight: bold;
       text-decoration: none;
-      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .video-card a:hover {
+      background-color: #00cc6e;
     }
 
     footer {
       background-color: #1f1f1f;
-      padding: 15px;
-      font-size: 0.9em;
+      padding: 20px;
       color: #aaa;
-      margin-top: 40px;
+      font-size: 0.9em;
+      margin-top: 60px;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <h1>HM-CHANNELS 📺</h1>
+    <h1>📺 HM-CHANNELS</h1>
     <p>مشاهدة محتوى حصري عبر تليغرام</p>
     <div class="telegram-link">
-      <a href="https://t.me/hmmatrixpro" target="_blank">تابعنا على تيلغرام</a>
+      <a href="https://t.me/hmmatrixpro" target="_blank">تابعنا على تليغرام</a>
     </div>
   </header>
 
-  <!-- القسم 1: أفلام -->
   <h2 class="section-title">🎬 أفلام</h2>
   <div class="video-grid">
     <div class="video-card">
-      <h3>فيلم  🔥</h3>
+      <h3>فيلم 🔥</h3>
       <a href="https://t.me/+vjajAWHk8CFlNWRk" target="_blank">شاهد الآن</a>
     </div>
   </div>
 
-  <!-- القسم 2: مسلسلات -->
   <h2 class="section-title">📺 مسلسلات</h2>
   <div class="video-grid">
     <div class="video-card">
-      <h3>مسلسلات </h3>
+      <h3>مسلسلات</h3>
       <a href="https://t.me/+jnVm4jYi8sFlZWU0" target="_blank">شاهد الآن</a>
     </div>
   </div>
 
-  <!-- القسم 3: أنمي -->
   <h2 class="section-title">🌀 أنمي</h2>
   <div class="video-grid">
     <div class="video-card">
-      <h3>أنمي </h3>
+      <h3>أنمي</h3>
       <a href="https://t.me/+O5lPMghfrVIzNDA0" target="_blank">شاهد الآن</a>
     </div>
   </div>
 
-  <!-- القسم 4: وثائقيات -->
   <h2 class="section-title">📚 وثائقيات</h2>
   <div class="video-grid">
     <div class="video-card">
@@ -130,8 +152,6 @@
     </div>
   </div>
 
-
-<!-- القسم 5: ألعاب -->
   <h2 class="section-title">🎮 ألعاب</h2>
   <div class="video-grid">
     <div class="video-card">
@@ -139,8 +159,6 @@
       <a href="https://t.me/+MgaqfpjW8jdiZjE0" target="_blank">شاهد الآن</a>
     </div>
   </div>
-
-
 
   <footer>
     &copy; 2025 HM-CHANNELS. جميع الحقوق محفوظة.
