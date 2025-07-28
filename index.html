@@ -12,19 +12,21 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
-    /* --- المتغيرات الرئيسية لسهولة التعديل --- */
+    /* --- المتغيرات الرئيسية للتصميم الجديد "الناضج" --- */
     :root {
-      --primary-color: #00ffd5; /* اللون الرئيسي (السيان) */
-      --card-color: rgba(10, 20, 30, 0.7); /* لون خلفية البطاقات مع شفافية - أزرق داكن */
-      --text-color: #f0f6fc; /* لون النص الأساسي */
-      --shadow-color: rgba(0, 255, 213, 0.7); /* لون الظل المتوهج */
+      --primary-color: #d4af37; /* اللون الرئيسي (ذهبي مطفي) */
+      --background-start: #0f172a; /* بداية خلفية داكنة (كحلي) */
+      --background-end: #0a0f1a; /* نهاية خلفية داكنة (أسود-كحلي) */
+      --card-color: rgba(15, 23, 42, 0.75); /* لون خلفية البطاقات الشفافة */
+      --text-color: #e2e8f0; /* لون النص الأساسي (أبيض-رمادي فاتح) */
+      --shadow-color: rgba(212, 175, 55, 0.4); /* لون الظل المتوهج (ذهبي) */
     }
 
     body {
       margin: 0;
       padding: 0;
-      background-color: #003973;
-      background-image: linear-gradient(160deg, #003973 0%, #007991 50%, #00998c 100%);
+      background-color: var(--background-start);
+      background-image: linear-gradient(160deg, var(--background-start) 0%, var(--background-end) 100%);
       background-attachment: fixed;
       color: var(--text-color);
       font-family: 'Cairo', sans-serif;
@@ -37,45 +39,41 @@
       background: none;
     }
 
+    /* --- عنوان أنيق وواضح --- */
     h1 {
       font-family: 'Lemonada', cursive;
       font-size: 3.2em;
       margin: 0;
-      background-image: linear-gradient(180deg, #ffffff 40%, var(--primary-color) 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 0 5px #fff, 
-                   0 0 15px var(--shadow-color), 
-                   0 0 30px var(--shadow-color);
+      color: var(--primary-color);
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* ظل بسيط لإبراز النص */
     }
 
     header p {
       font-family: 'Lemonada', cursive;
       font-size: 1.1em;
       margin-top: 10px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      color: var(--text-color);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
     }
     
     .telegram-link a {
       margin-top: 20px;
       display: inline-block;
-      background-color: var(--card-color);
+      background-color: transparent;
       color: var(--primary-color);
       padding: 12px 24px;
-      border: 1px solid rgba(0, 255, 213, 0.3);
+      border: 1px solid var(--primary-color);
       border-radius: 8px;
       text-decoration: none;
       font-family: 'Lemonada', cursive;
       font-weight: 700;
-      backdrop-filter: blur(8px);
       transition: all 0.3s ease;
     }
 
     .telegram-link a:hover {
-      background-color: rgba(0, 255, 213, 0.2);
+      background-color: var(--primary-color);
+      color: #000;
       box-shadow: 0 0 20px var(--shadow-color);
-      color: #fff;
     }
 
     /* --- عناوين الأقسام --- */
@@ -84,7 +82,7 @@
       font-size: 2.2em;
       margin: 60px 0 30px;
       color: var(--text-color);
-      text-shadow: 0 0 10px rgba(0, 255, 213, 0.3), 0 3px 6px rgba(0,0,0,0.5);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
     
     .section-title i {
@@ -102,10 +100,10 @@
       margin: 0 auto;
     }
 
-    /* --- بطاقات المحتوى (تأثير زجاجي) --- */
+    /* --- بطاقات المحتوى (بتصميم متجانس) --- */
     .video-card {
       background-color: var(--card-color);
-      border: 1px solid rgba(0, 255, 213, 0.3);
+      border: 1px solid rgba(212, 175, 55, 0.3);
       border-radius: 12px;
       padding: 25px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
@@ -118,8 +116,8 @@
     }
 
     .video-card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 0 30px var(--shadow-color);
+      transform: translateY(-8px);
+      box-shadow: 0 0 25px var(--shadow-color);
       border-color: var(--primary-color);
     }
 
@@ -133,7 +131,7 @@
 
     .video-card a {
       background-color: var(--primary-color);
-      color: #000;
+      color: #111;
       padding: 12px 25px;
       border-radius: 8px;
       font-weight: bold;
@@ -152,7 +150,7 @@
     .contact-fab {
         position: fixed;
         bottom: 25px;
-        left: 25px; /* لتكون في الجانب الأيسر */
+        left: 25px;
         width: 60px;
         height: 60px;
         background-color: var(--primary-color);
@@ -160,14 +158,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 15px rgba(0, 255, 213, 0.4);
-        z-index: 1000; /* للتأكد من أنها فوق كل العناصر */
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        z-index: 1000;
         transition: all 0.3s ease;
     }
 
     .contact-fab:hover {
         transform: scale(1.1);
-        box-shadow: 0 6px 20px rgba(0, 255, 213, 0.6);
+        box-shadow: 0 6px 20px var(--shadow-color);
     }
 
     .contact-fab i {
@@ -179,10 +177,10 @@
     footer {
       background-color: transparent;
       padding: 25px;
-      color: #cce8ff;
+      color: #a0aec0; /* لون رمادي فاتح */
       font-size: 0.9em;
       margin-top: 80px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
 
     @keyframes fadeInSlideUp {
@@ -246,7 +244,7 @@
   <div class="video-grid">
     <div class="video-card">
       <h3>كورسات متنوعة</h3>
-      <a href="https.t.me/+__gXgYSiEC5jOTM8" target="_blank">تصفح الآن</a>
+      <a href="https://t.me/+__gXgYSiEC5jOTM8" target="_blank">تصفح الآن</a>
     </div>
     <div class="video-card">
       <h3>كورسات لغة إنجليزية</h3>
