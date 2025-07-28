@@ -15,17 +15,17 @@
     /* --- المتغيرات الرئيسية لسهولة التعديل --- */
     :root {
       --primary-color: #00ffd5; /* اللون الرئيسي (السيان) */
-      --card-color: rgba(15, 15, 15, 0.7); /* لون خلفية البطاقات مع شفافية */
-      --text-color: #f0f0f0; /* لون النص الأساسي */
-      --shadow-color: rgba(0, 255, 213, 0.6); /* لون الظل المتوهج */
+      --card-color: rgba(10, 20, 30, 0.7); /* لون خلفية البطاقات مع شفافية - أزرق داكن */
+      --text-color: #f0f6fc; /* لون النص الأساسي */
+      --shadow-color: rgba(0, 255, 213, 0.7); /* لون الظل المتوهج */
     }
 
     body {
       margin: 0;
       padding: 0;
-      background-color: #a200ff;
-      background-image: linear-gradient(160deg, #a200ff 0%, #ff0073 50%, #ff8c00 100%);
-      background-attachment: fixed; /* لتثبيت الخلفية أثناء التمرير */
+      background-color: #003973;
+      background-image: linear-gradient(160deg, #003973 0%, #007991 50%, #00998c 100%);
+      background-attachment: fixed;
       color: var(--text-color);
       font-family: 'Cairo', sans-serif;
       text-align: center;
@@ -34,18 +34,20 @@
     /* --- الترويسة --- */
     header {
       padding: 40px 20px;
-      background: none; /* جعل الخلفية شفافة */
+      background: none;
     }
 
     h1 {
       font-family: 'Lemonada', cursive;
-      font-size: 3em;
+      font-size: 3.2em;
       margin: 0;
-      background-image: linear-gradient(180deg, #ffffff 30%, var(--primary-color) 100%);
+      background-image: linear-gradient(180deg, #ffffff 40%, var(--primary-color) 100%);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      text-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+      text-shadow: 0 0 5px #fff, 
+                   0 0 15px var(--shadow-color), 
+                   0 0 30px var(--shadow-color);
     }
 
     header p {
@@ -61,12 +63,12 @@
       background-color: var(--card-color);
       color: var(--primary-color);
       padding: 12px 24px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 255, 213, 0.3);
       border-radius: 8px;
       text-decoration: none;
       font-family: 'Lemonada', cursive;
       font-weight: 700;
-      backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
       transition: all 0.3s ease;
     }
 
@@ -82,7 +84,7 @@
       font-size: 2.2em;
       margin: 60px 0 30px;
       color: var(--text-color);
-      text-shadow: 0 3px 6px rgba(0,0,0,0.5);
+      text-shadow: 0 0 10px rgba(0, 255, 213, 0.3), 0 3px 6px rgba(0,0,0,0.5);
     }
     
     .section-title i {
@@ -103,14 +105,13 @@
     /* --- بطاقات المحتوى (تأثير زجاجي) --- */
     .video-card {
       background-color: var(--card-color);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(0, 255, 213, 0.3);
       border-radius: 12px;
       padding: 25px;
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(5px);
-      -webkit-backdrop-filter: blur(5px);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
       transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-      /* حركة الدخول */
       animation: fadeInSlideUp 0.8s ease-out forwards;
       opacity: 0;
       transform: translateY(20px);
@@ -147,17 +148,43 @@
       transform: scale(1.05);
     }
 
+    /* --- أيقونة التواصل الثابتة --- */
+    .contact-fab {
+        position: fixed;
+        bottom: 25px;
+        left: 25px; /* لتكون في الجانب الأيسر */
+        width: 60px;
+        height: 60px;
+        background-color: var(--primary-color);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0, 255, 213, 0.4);
+        z-index: 1000; /* للتأكد من أنها فوق كل العناصر */
+        transition: all 0.3s ease;
+    }
+
+    .contact-fab:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(0, 255, 213, 0.6);
+    }
+
+    .contact-fab i {
+        color: #000;
+        font-size: 28px;
+    }
+    
     /* --- التذييل --- */
     footer {
       background-color: transparent;
       padding: 25px;
-      color: #ddd;
+      color: #cce8ff;
       font-size: 0.9em;
       margin-top: 80px;
       text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    /* --- تعريف حركة الدخول --- */
     @keyframes fadeInSlideUp {
       to {
         opacity: 1;
@@ -165,9 +192,8 @@
       }
     }
     
-    /* تعديلات للشاشات الصغيرة */
     @media (max-width: 600px) {
-      h1 { font-size: 2.2em; }
+      h1 { font-size: 2.5em; }
       .section-title { font-size: 1.8em; }
     }
   </style>
@@ -220,7 +246,7 @@
   <div class="video-grid">
     <div class="video-card">
       <h3>كورسات متنوعة</h3>
-      <a href="https://t.me/+__gXgYSiEC5jOTM8" target="_blank">تصفح الآن</a>
+      <a href="https.t.me/+__gXgYSiEC5jOTM8" target="_blank">تصفح الآن</a>
     </div>
     <div class="video-card">
       <h3>كورسات لغة إنجليزية</h3>
@@ -243,6 +269,10 @@
       <a href="https://t.me/MgaqfpjW8jdiZjE0" target="_blank">شاهد الآن</a>
     </div>
   </div>
+  
+  <a href="https://t.me/It24live" class="contact-fab" target="_blank" rel="noopener noreferrer" aria-label="تواصل معي على تليجرام">
+    <i class="fab fa-telegram"></i>
+  </a>
 
   <footer>
     &copy; 2025 HM-CHANNELS. جميع الحقوق محفوظة.
