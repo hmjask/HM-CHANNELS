@@ -1,244 +1,943 @@
+<!-- ================== PART 1/3 ================== -->
 <!doctype html>
-
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>HM‑CHANNELS | منصة المشاهدة</title>  <!-- Fonts -->  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="description" content="HM-CHANNELS منصة مشاهدة عبر تليغرام: أفلام، مسلسلات، أنمي، وثائقيات، كورسات، ألعاب وأكثر." />
+  <meta name="theme-color" content="#0a0f1a" />
+  <title>HM-CHANNELS | منصة المشاهدة</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Lemonada:wght@600;700&display=swap" rel="stylesheet">  <!-- Icons -->  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Lemonada:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
+
+  <style>
     /* --------------------
-       التصميم العام
+       Theme / Tokens
     -------------------- */
     :root{
-      --primary:#d4af37;            /* ذهبي راقٍ */
-      --primary-weak:#e6c766;       /* درجة أفتح للهوفر */
-      --bg-1:#0f172a;               /* كحلي داكن */
-      --bg-2:#0a0f1a;               /* أسود مزرق */
-      --glass:rgba(15,23,42,.6);    /* خلفية زجاجية للبطاقات */
-      --text:#e2e8f0;               /* نص أساسي */
-      --muted:#9aa4b2;              /* نص ثانوي */
-      --ring:rgba(212,175,55,.35);  /* وميض ذهبي */
-      --radius:16px;
-      --shadow:0 10px 30px rgba(0,0,0,.45);
+      --primary:#d4af37;
+      --primary-weak:#e6c766;
+      --bg-1:#0f172a;
+      --bg-2:#0a0f1a;
+      --glass:rgba(15,23,42,.62);
+      --glass-2:rgba(10,15,26,.55);
+      --text:#e2e8f0;
+      --muted:#9aa4b2;
+      --ring:rgba(212,175,55,.38);
+      --radius:18px;
+      --shadow:0 14px 38px rgba(0,0,0,.50);
+      --shadow-soft:0 10px 26px rgba(0,0,0,.35);
+      --max:1200px;
     }
 
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     body{
-      margin:0; color:var(--text);
+      margin:0;
+      color:var(--text);
       font-family:'Cairo',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Noto Sans",sans-serif;
-      background: radial-gradient(1200px 600px at 80% -100px, rgba(212,175,55,.08), transparent 60%),
-                  linear-gradient(160deg,var(--bg-1),var(--bg-2));
+      background:
+        radial-gradient(1200px 650px at 85% -120px, rgba(212,175,55,.10), transparent 60%),
+        radial-gradient(900px 520px at 15% 120%, rgba(212,175,55,.07), transparent 55%),
+        linear-gradient(160deg,var(--bg-1),var(--bg-2));
       min-height:100dvh;
+      overflow-x:hidden;
     }
 
-    /* خطوط وإيقاع بصري لطيف */
-    h1,h2{font-family:'Lemonada',cursive;letter-spacing:.2px}
-    h1{font-weight:700;font-size:clamp(2rem,4.5vw,3.25rem);margin:0}
-    h2{font-weight:600;font-size:clamp(1.3rem,3.2vw,2rem);margin:0 0 24px}
+    /* LTR font preference */
+    html[lang="en"] body{font-family:'Inter','Cairo',system-ui,sans-serif}
+
+    a{color:inherit}
+    .container{max-width:var(--max); margin:0 auto; padding:0 20px}
+    section{padding:44px 0}
+
+    /* Skip link for accessibility */
+    .skip{
+      position:absolute; inset:10px auto auto 10px;
+      background:var(--primary); color:#111;
+      padding:10px 12px; border-radius:12px;
+      transform:translateY(-160%);
+      transition:.2s ease; z-index:999;
+      font-weight:800; text-decoration:none;
+    }
+    .skip:focus{transform:none; outline:none; box-shadow:0 0 0 4px var(--ring)}
 
     /* --------------------
-       ترويسة
+       Top bar / Nav
     -------------------- */
-    header{
+    .topbar{
+      position:sticky; top:0; z-index:100;
+      backdrop-filter:saturate(140%) blur(10px);
+      -webkit-backdrop-filter:saturate(140%) blur(10px);
+      background:linear-gradient(180deg, rgba(10,15,26,.78), rgba(10,15,26,.55));
+      border-bottom:1px solid rgba(212,175,55,.16);
+    }
+    .topbar .inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:12px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      text-decoration:none;
+    }
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      display:grid; place-items:center;
+      background:radial-gradient(circle at 30% 25%, rgba(255,255,255,.25), transparent 55%),
+                 linear-gradient(160deg, rgba(212,175,55,.95), rgba(212,175,55,.55));
+      color:#111; box-shadow:0 10px 22px rgba(0,0,0,.35);
+    }
+    .brand b{font-size:1.02rem; letter-spacing:.3px}
+    .brand small{display:block; color:var(--muted); font-weight:600; margin-top:2px}
+
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap;
+      justify-content:center;
+    }
+    .pill{
+      display:inline-flex; align-items:center; gap:.55rem;
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(15,23,42,.45);
+      border:1px solid rgba(212,175,55,.15);
+      text-decoration:none;
+      color:var(--text);
+      font-weight:800;
+      transition:.2s ease;
+      box-shadow:var(--shadow-soft);
+    }
+    .pill i{color:var(--primary)}
+    .pill:hover{transform:translateY(-1px); border-color:rgba(212,175,55,.35)}
+    .pill:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring)}
+
+    .actions{
+      display:flex; align-items:center; gap:10px;
+    }
+    .langBtn{
+      display:inline-flex; align-items:center; gap:.55rem;
+      border-radius:999px;
+      padding:10px 14px;
+      background:transparent;
+      border:1px solid rgba(212,175,55,.35);
+      color:var(--primary);
+      font-weight:900;
+      cursor:pointer;
+      transition:.2s ease;
+      box-shadow:0 0 0 0 rgba(0,0,0,0);
+    }
+    .langBtn:hover{background:var(--primary); color:#111; transform:translateY(-1px)}
+    .langBtn:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring)}
+
+    /* --------------------
+       Hero
+    -------------------- */
+    header.hero{
       position:relative; isolation:isolate;
-      padding:64px 20px 28px; text-align:center;
+      padding:54px 0 22px;
       overflow:hidden;
+      text-align:center;
     }
-    /* توهج ناعم خلف العنوان */
-    header::before{
-      content:""; position:absolute; inset:-40% -10% auto; height:80%; z-index:-1;
-      background: radial-gradient(closest-side, rgba(212,175,55,.14), transparent 70%);
-      filter:blur(50px);
+    header.hero::before{
+      content:""; position:absolute; inset:-40% -10% auto; height:85%; z-index:-1;
+      background: radial-gradient(closest-side, rgba(212,175,55,.16), transparent 70%);
+      filter:blur(55px);
     }
-    .sub{color:var(--muted); margin:10px auto 18px; font-weight:600}
+    header.hero::after{
+      content:""; position:absolute; inset:0; z-index:-1; pointer-events:none;
+      background:
+        radial-gradient(600px 220px at 20% 10%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(500px 240px at 80% 35%, rgba(212,175,55,.08), transparent 60%);
+      opacity:.9;
+    }
+
+    .hero h1{
+      font-family:'Lemonada',cursive;
+      font-weight:700;
+      font-size:clamp(2rem,4.7vw,3.35rem);
+      margin:0;
+      letter-spacing:.2px;
+    }
+    .hero p{
+      color:var(--muted);
+      margin:12px auto 18px;
+      font-weight:700;
+      max-width:820px;
+      line-height:1.9;
+    }
+
+    .hero-ctaRow{
+      display:flex; justify-content:center; gap:12px; flex-wrap:wrap;
+      margin-top:10px;
+    }
     .cta{
       display:inline-flex; align-items:center; gap:.6rem;
-      background:transparent; border:1px solid var(--primary);
-      color:var(--primary); padding:12px 20px; border-radius:999px;
-      font-weight:800; text-decoration:none; transition:.25s ease;
-      box-shadow: 0 0 0 0 rgba(212,175,55,0);
+      background:transparent;
+      border:1px solid rgba(212,175,55,.60);
+      color:var(--primary);
+      padding:12px 18px;
+      border-radius:999px;
+      font-weight:900;
+      text-decoration:none;
+      transition:.25s ease;
+      box-shadow:0 0 0 0 rgba(212,175,55,0);
     }
+    .cta.primary{
+      background:var(--primary);
+      color:#111;
+      border-color:transparent;
+      box-shadow:0 14px 34px rgba(212,175,55,.14);
+    }
+    .cta:hover{transform:translateY(-1px)}
+    .cta.primary:hover{filter:brightness(1.05)}
     .cta:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring)}
-    .cta:hover{background:var(--primary); color:#111; transform:translateY(-1px)}
+    .chips{
+      display:flex; justify-content:center; flex-wrap:wrap; gap:10px;
+      margin:18px auto 0;
+      max-width:980px;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:.55rem;
+      padding:10px 12px;
+      border-radius:999px;
+      background:rgba(15,23,42,.40);
+      border:1px solid rgba(212,175,55,.14);
+      color:var(--text);
+      box-shadow:var(--shadow-soft);
+      font-weight:800;
+      font-size:.95rem;
+    }
+    .chip i{color:var(--primary)}
 
     /* --------------------
-       بنية الصفحة
+       Sections / Cards
     -------------------- */
-    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .section-head{
+      display:flex; align-items:center; gap:10px; margin-bottom:18px;
+    }
+    .section-head i{color:var(--primary); font-size:1.05rem}
+    .section-head h2{
+      margin:0;
+      font-family:'Lemonada',cursive;
+      font-weight:700;
+      font-size:clamp(1.25rem,3vw,1.95rem);
+    }
 
-    section{padding:42px 0}
-
-    .section-head{display:flex;align-items:center;gap:10px;margin-bottom:22px}
-    .section-head i{color:var(--primary)}
-
-    /* شبكة البطاقات */
     .grid{
-      display:grid; gap:22px;
+      display:grid;
+      gap:18px;
       grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
     }
 
-    /* بطاقة قابلة للنقر بالكامل */
+    /* Make the entire card clickable by using <a class="card"> */
     .card{
-      position:relative; display:flex; flex-direction:column; justify-content:space-between;
-      min-height:150px; padding:22px; border-radius:var(--radius);
-      background:var(--glass);
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:170px;
+      padding:20px;
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, var(--glass), var(--glass-2));
       border:1px solid rgba(212,175,55,.22);
       box-shadow:var(--shadow);
-      backdrop-filter:saturate(120%) blur(10px);
-      -webkit-backdrop-filter:saturate(120%) blur(10px);
-      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      backdrop-filter:saturate(125%) blur(10px);
+      -webkit-backdrop-filter:saturate(125%) blur(10px);
+      text-decoration:none;
+      transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, filter .25s ease;
       opacity:0; transform:translateY(14px);
-      animation:reveal .7s calc(var(--i,0) * 80ms) both;
+      animation:reveal .7s calc(var(--i,0) * 90ms) both;
+      overflow:hidden;
     }
-    .card:hover{transform:translateY(-6px); box-shadow:0 16px 40px rgba(212,175,55,.18); border-color:var(--primary)}
-
-    .card h3{margin:0 0 10px; font-family:'Lemonada',cursive; font-size:1.1rem}
-    .card .meta{color:var(--muted); font-size:.92rem}
-
-    .card .btn{
-      align-self:flex-start; margin-top:16px; padding:10px 16px; border-radius:10px;
-      background:var(--primary); color:#111; font-weight:800; text-decoration:none;
-      transition:transform .2s ease, background .2s ease;
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:radial-gradient(460px 160px at 85% 20%, rgba(212,175,55,.16), transparent 62%);
+      opacity:.9;
+      pointer-events:none;
     }
-    .card .btn:hover{background:#fff; transform:translateY(-2px)}
-    .card:focus-within{outline:none; box-shadow:0 0 0 4px var(--ring)}
+    .card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 20px 44px rgba(212,175,55,.16);
+      border-color:rgba(212,175,55,.55);
+      filter:brightness(1.03);
+    }
+    .card:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring)}
+
+    .cardTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:12px;
+      position:relative;
+    }
+    .cardIcon{
+      width:46px; height:46px; border-radius:16px;
+      display:grid; place-items:center;
+      background:rgba(212,175,55,.14);
+      border:1px solid rgba(212,175,55,.28);
+      box-shadow:0 10px 22px rgba(0,0,0,.25);
+      flex:0 0 auto;
+    }
+    .cardIcon i{color:var(--primary); font-size:1.15rem}
+
+    .card h3{
+      margin:0 0 8px;
+      font-family:'Lemonada',cursive;
+      font-size:1.08rem;
+      line-height:1.5;
+      position:relative;
+    }
+    .meta{
+      margin:0;
+      color:var(--muted);
+      font-size:.94rem;
+      line-height:1.7;
+      position:relative;
+    }
+    .tags{
+      display:flex; gap:8px; flex-wrap:wrap;
+      margin-top:12px;
+      position:relative;
+    }
+    .tag{
+      font-size:.86rem;
+      font-weight:900;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(15,23,42,.45);
+      border:1px solid rgba(212,175,55,.16);
+      color:var(--text);
+    }
+
+    .cardAction{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-top:16px;
+      position:relative;
+    }
+    .hint{
+      color:rgba(226,232,240,.85);
+      font-weight:800;
+      font-size:.92rem;
+      display:inline-flex; align-items:center; gap:.45rem;
+    }
+    .go{
+      display:inline-flex; align-items:center; gap:.55rem;
+      padding:10px 14px;
+      border-radius:12px;
+      background:var(--primary);
+      color:#111;
+      font-weight:900;
+      box-shadow:0 12px 22px rgba(212,175,55,.12);
+      transition:.2s ease;
+    }
+    .card:hover .go{transform:translateY(-1px); background:#fff}
 
     @keyframes reveal{to{opacity:1; transform:none}}
 
-    /* زر تواصل عائم */
+    /* Floating Telegram FAB */
     .fab{
-      position:fixed; inset:auto 20px 22px auto; width:56px; height:56px;
-      border-radius:50%; background:var(--primary); display:grid; place-items:center;
-      color:#111; box-shadow:0 14px 30px rgba(0,0,0,.45); transition:transform .25s ease, box-shadow .25s ease; z-index:50
+      position:fixed;
+      inset:auto 18px 18px auto;
+      width:58px; height:58px;
+      border-radius:50%;
+      background:var(--primary);
+      display:grid; place-items:center;
+      color:#111;
+      box-shadow:0 16px 34px rgba(0,0,0,.45);
+      transition:transform .25s ease, box-shadow .25s ease, filter .25s ease;
+      z-index:150;
+      text-decoration:none;
     }
-    .fab:hover{transform:translateY(-3px); box-shadow:0 18px 40px rgba(212,175,55,.35)}
+    .fab:hover{transform:translateY(-3px); box-shadow:0 20px 44px rgba(212,175,55,.30); filter:brightness(1.03)}
     .fab:focus-visible{outline:none; box-shadow:0 0 0 4px var(--ring)}
 
-    footer{padding:34px 20px; text-align:center; color:var(--muted)}
+    /* Footer */
+    footer{
+      padding:34px 20px;
+      text-align:center;
+      color:var(--muted);
+      border-top:1px solid rgba(212,175,55,.12);
+      background:linear-gradient(180deg, rgba(10,15,26,0), rgba(10,15,26,.55));
+    }
+    footer .note{
+      max-width:900px;
+      margin:10px auto 0;
+      line-height:1.8;
+      font-weight:700;
+      color:rgba(154,164,178,.95);
+    }
 
-    /* تفضيل تقليل الحركة */
+    /* Reduced motion */
     @media (prefers-reduced-motion:reduce){
       *{animation:none !important; transition:none !important}
     }
-  </style></head>
-<body>  <header class="container" aria-label="مقدمة الموقع">
-    <h1>📺 HM‑CHANNELS</h1>
-    <p class="sub">مشاهدة محتوى حصري عبر تليغرام – أفلام، مسلسلات، أنمي، وثائقيات والمزيد</p>
-    <a class="cta" href="https://t.me/hmmatrixpro" target="_blank" rel="noopener noreferrer" aria-label="تابع قناتنا على تليغرام">
-      <i class="fa-brands fa-telegram"></i>
-      تابعنا على تليغرام
-    </a>
-  </header>  <main class="container" id="content"><!-- أفلام -->
-<section aria-labelledby="films">
-  <div class="section-head"><i class="fa-solid fa-film"></i><h2 id="films">أفلام</h2></div>
-  <div class="grid">
-    <article class="card" style="--i:0">
-      <div>
-        <h3>فيلم مميّز 🔥</h3>
-        <p class="meta">مختارات حصرية بجودة عالية</p>
-      </div>
-      <a class="btn" href="https://t.me/+vjajAWHk8CFlNWRk" target="_blank" rel="noopener noreferrer">شاهد الآن</a>
-    </article>
-  </div>
-</section>
 
-<!-- مسلسلات -->
-<section aria-labelledby="series">
-  <div class="section-head"><i class="fa-solid fa-tv"></i><h2 id="series">مسلسلات</h2></div>
-  <div class="grid">
-    <article class="card" style="--i:0">
-      <div>
-        <h3>مسلسلات عالمية</h3>
-        <p class="meta">أحدث الحلقات أولاً بأول</p>
-      </div>
-      <a class="btn" href="https://t.me/+jnVm4jYi8sFlZWU0" target="_blank">شاهد الآن</a>
-    </article>
-    <article class="card" style="--i:1">
-      <div>
-        <h3>مسلسلات عربية وأندلس</h3>
-        <p class="meta">نخبة الدراما العربية</p>
-      </div>
-      <a class="btn" href="https://t.me/Andalushi" target="_blank">شاهد الآن</a>
-    </article>
-    <article class="card" style="--i:2">
-      <div>
-        <h3>مسلسلات مغربية</h3>
-        <p class="meta">قصص من الواقع بلمسة مغربية</p>
-      </div>
-      <a class="btn" href="https://t.me/UneHeuree" target="_blank">شاهد الآن</a>
-    </article>
-  </div>
-</section>
+    /* Responsive tweaks */
+    @media (max-width: 780px){
+      .nav{display:none} /* keep it clean on mobile */
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#content" data-t="skip">تخطي إلى المحتوى</a>
 
-<!-- أنمي -->
-<section aria-labelledby="anime">
-  <div class="section-head"><i class="fa-solid fa-dragon"></i><h2 id="anime">أنمي</h2></div>
-  <div class="grid">
-    <article class="card" style="--i:0">
-      <div>
-        <h3>عناوين أنمي مختارة</h3>
-        <p class="meta">كلاسيكيات وأعمال جديدة</p>
-      </div>
-      <a class="btn" href="https://t.me/O5lPMghfrVIzNDA0" target="_blank">شاهد الآن</a>
-    </article>
-  </div>
-</section>
+  <!-- Top Bar -->
+  <div class="topbar" role="navigation" aria-label="الشريط العلوي">
+    <div class="container inner">
+      <a class="brand" href="#top" aria-label="HM-CHANNELS">
+        <span class="logo" aria-hidden="true">HM</span>
+        <span>
+          <b>HM-CHANNELS</b>
+          <small data-t="brandSmall">منصة مشاهدة عبر تليغرام</small>
+        </span>
+      </a>
 
-<!-- كورسات -->
-<section aria-labelledby="courses">
-  <div class="section-head"><i class="fa-solid fa-graduation-cap"></i><h2 id="courses">كورسات</h2></div>
-  <div class="grid">
-    <article class="card" style="--i:0">
-      <div>
-        <h3>كورسات متنوعة</h3>
-        <p class="meta">تعلّم في مجالات متعددة</p>
+      <div class="nav" aria-label="روابط الأقسام">
+        <a class="pill" href="#films"><i class="fa-solid fa-film"></i><span data-t="navFilms">أفلام</span></a>
+        <a class="pill" href="#series"><i class="fa-solid fa-tv"></i><span data-t="navSeries">مسلسلات</span></a>
+        <a class="pill" href="#anime"><i class="fa-solid fa-dragon"></i><span data-t="navAnime">أنمي</span></a>
+        <a class="pill" href="#courses"><i class="fa-solid fa-graduation-cap"></i><span data-t="navCourses">كورسات</span></a>
+        <a class="pill" href="#docs"><i class="fa-solid fa-globe"></i><span data-t="navDocs">وثائقيات</span></a>
+        <a class="pill" href="#games"><i class="fa-solid fa-gamepad"></i><span data-t="navGames">ألعاب</span></a>
       </div>
-      <a class="btn" href="https://t.me/+__gXgYSiEC5jOTM8" target="_blank">تصفح الآن</a>
-    </article>
-    <article class="card" style="--i:1">
-      <div>
-        <h3>لغة إنجليزية</h3>
-        <p class="meta">مصادر عملية لتطوير مستواك</p>
-      </div>
-      <a class="btn" href="https://t.me/engCSNEW" target="_blank">تعلّم الآن</a>
-    </article>
-  </div>
-</section>
 
-<!-- وثائقيات -->
-<section aria-labelledby="docs">
-  <div class="section-head"><i class="fa-solid fa-globe"></i><h2 id="docs">وثائقيات</h2></div>
-  <div class="grid">
-    <article class="card" style="--i:0">
-      <div>
-        <h3>رحلة في الكون 🌌</h3>
-        <p class="meta">رؤى ومعرفة موثوقة</p>
+      <div class="actions">
+        <button class="langBtn" id="langToggle" type="button" aria-label="تبديل اللغة">
+          <i class="fa-solid fa-language"></i>
+          <span id="langLabel">English</span>
+        </button>
       </div>
-      <a class="btn" href="https://t.me/+3hNQum311StjMDFk" target="_blank">شاهد الآن</a>
-    </article>
+    </div>
   </div>
-</section>
 
-<!-- ألعاب -->
-<section aria-labelledby="games">
-  <div class="section-head"><i class="fa-solid fa-gamepad"></i><h2 id="games">ألعاب</h2></div>
-  <div class="grid">
-    <article class="card" style="--i:0">
-      <div>
-        <h3>ألعاب 🎮</h3>
-        <p class="meta">تحميل وأخبار أحدث الإصدارات</p>
+  <!-- Hero -->
+  <header class="hero container" id="top" aria-label="مقدمة الموقع">
+    <h1 data-t="heroTitle">📺 HM-CHANNELS</h1>
+    <p data-t="heroSub">
+      مشاهدة مختارات قوية عبر تليغرام: أفلام ومسلسلات وأنمي ووثائقيات وكورسات وألعاب… وكل شيء مرتب وبجودة ممتازة.
+    </p>
+
+    <div class="hero-ctaRow">
+      <a class="cta primary" href="https://t.me/hmmatrixpro" target="_blank" rel="noopener noreferrer"
+         aria-label="تابع القناة الرئيسية على تليغرام" data-t-aria="ctaMainAria">
+        <i class="fa-brands fa-telegram"></i>
+        <span data-t="ctaMain">تابع القناة الرئيسية</span>
+      </a>
+
+      <a class="cta" href="#content" aria-label="استعرض الأقسام">
+        <i class="fa-solid fa-layer-group"></i>
+        <span data-t="ctaBrowse">استعراض الأقسام</span>
+      </a>
+    </div>
+
+    <div class="chips" aria-label="مزايا">
+      <span class="chip"><i class="fa-solid fa-star"></i><span data-t="chip1">مختارات مميزة</span></span>
+      <span class="chip"><i class="fa-solid fa-bolt"></i><span data-t="chip2">تحديثات مستمرة</span></span>
+      <span class="chip"><i class="fa-solid fa-shield"></i><span data-t="chip3">روابط واضحة وسريعة</span></span>
+      <span class="chip"><i class="fa-solid fa-wand-magic-sparkles"></i><span data-t="chip4">تجربة أنيقة</span></span>
+    </div>
+  </header>
+
+  <main class="container" id="content" aria-label="محتوى الموقع">
+<!-- ================== PART 2/3 ================== -->
+
+    <!-- Films -->
+    <section aria-labelledby="films">
+      <div class="section-head">
+        <i class="fa-solid fa-film" aria-hidden="true"></i>
+        <h2 id="films" data-t="filmsTitle">أفلام 🎬</h2>
       </div>
-      <a class="btn" href="https://t.me/MgaqfpjW8jdiZjE0" target="_blank">شاهد الآن</a>
-    </article>
-  </div>
-</section>
 
-  </main>  <a class="fab" href="https://t.me/It24live" target="_blank" rel="noopener noreferrer" aria-label="تواصل على تليغرام">
+      <div class="grid">
+        <a class="card" style="--i:0" href="https://t.me/+vjajAWHk8CFlNWRk" target="_blank" rel="noopener noreferrer"
+           aria-label="قسم الأفلام على تليغرام" data-t-aria="filmsAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="filmsH">أفلام مختارة بعناية</h3>
+              <p class="meta" data-t="filmsM">أكشن، دراما، خيال علمي… مع جودة ممتازة وروابط مرتبة.</p>
+              <div class="tags" aria-label="وسوم">
+                <span class="tag" data-t="tagHQ">جودة عالية</span>
+                <span class="tag" data-t="tagPicks">مختارات</span>
+                <span class="tag" data-t="tagFast">وصول سريع</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-clapperboard"></i></div>
+          </div>
+
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="watchNow">شاهد الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Series -->
+    <section aria-labelledby="series">
+      <div class="section-head">
+        <i class="fa-solid fa-tv" aria-hidden="true"></i>
+        <h2 id="series" data-t="seriesTitle">مسلسلات 📺</h2>
+      </div>
+
+      <div class="grid">
+        <a class="card" style="--i:0" href="https://t.me/+jnVm4jYi8sFlZWU0" target="_blank" rel="noopener noreferrer"
+           aria-label="مسلسلات عالمية على تليغرام" data-t-aria="seriesWorldAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="seriesWorldH">مسلسلات عالمية</h3>
+              <p class="meta" data-t="seriesWorldM">موسم جديد؟ حلقة جديدة؟ كل شيء يوصل لك بسرعة وبترتيب.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagNew">أحدث</span>
+                <span class="tag" data-t="tagOrder">مرتب</span>
+                <span class="tag" data-t="tagDaily">تحديث</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-satellite-dish"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="watchNow">شاهد الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+
+        <a class="card" style="--i:1" href="https://t.me/Andalushi" target="_blank" rel="noopener noreferrer"
+           aria-label="دراما عربية وأندلس على تليغرام" data-t-aria="seriesArabAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="seriesArabH">دراما عربية وأندلس</h3>
+              <p class="meta" data-t="seriesArabM">نخبة من الأعمال العربية… اختيارات قوية ومحتوى ممتع.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagArab">عربي</span>
+                <span class="tag" data-t="tagDrama">دراما</span>
+                <span class="tag" data-t="tagTop">نخبة</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-masks-theater"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="watchNow">شاهد الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+
+        <a class="card" style="--i:2" href="https://t.me/UneHeuree" target="_blank" rel="noopener noreferrer"
+           aria-label="مسلسلات مغربية على تليغرام" data-t-aria="seriesMoroccoAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="seriesMoroccoH">مسلسلات مغربية</h3>
+              <p class="meta" data-t="seriesMoroccoM">قصص قريبة من الواقع… بلمسة مغربية ممتعة.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagMorocco">مغربي</span>
+                <span class="tag" data-t="tagStories">قصص</span>
+                <span class="tag" data-t="tagReal">واقعي</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-location-dot"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="watchNow">شاهد الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Anime -->
+    <section aria-labelledby="anime">
+      <div class="section-head">
+        <i class="fa-solid fa-dragon" aria-hidden="true"></i>
+        <h2 id="anime" data-t="animeTitle">أنمي 🍥</h2>
+      </div>
+
+      <div class="grid">
+        <a class="card" style="--i:0" href="https://t.me/O5lPMghfrVIzNDA0" target="_blank" rel="noopener noreferrer"
+           aria-label="قسم الأنمي على تليغرام" data-t-aria="animeAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="animeH">عناوين أنمي مختارة</h3>
+              <p class="meta" data-t="animeM">كلاسيكيات + أعمال جديدة… وكل شيء منظم لتوصل بسرعة.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagClassic">كلاسيك</span>
+                <span class="tag" data-t="tagNew">جديد</span>
+                <span class="tag" data-t="tagFun">متعة</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="watchNow">شاهد الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Courses -->
+    <section aria-labelledby="courses">
+      <div class="section-head">
+        <i class="fa-solid fa-graduation-cap" aria-hidden="true"></i>
+        <h2 id="courses" data-t="coursesTitle">كورسات 🎓</h2>
+      </div>
+
+      <div class="grid">
+        <a class="card" style="--i:0" href="https://t.me/+__gXgYSiEC5jOTM8" target="_blank" rel="noopener noreferrer"
+           aria-label="كورسات متنوعة على تليغرام" data-t-aria="coursesAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="coursesH">كورسات متنوعة</h3>
+              <p class="meta" data-t="coursesM">تعلّم مهارات عملية: تقنية، تصميم، إنتاجية… وأكثر.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagLearn">تعلّم</span>
+                <span class="tag" data-t="tagSkills">مهارات</span>
+                <span class="tag" data-t="tagSources">مصادر</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-book-open"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="browseNow">تصفح الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+
+        <a class="card" style="--i:1" href="https://t.me/engCSNEW" target="_blank" rel="noopener noreferrer"
+           aria-label="مصادر تعلم الإنجليزية على تليغرام" data-t-aria="englishAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="englishH">لغة إنجليزية</h3>
+              <p class="meta" data-t="englishM">مصادر عملية يومية لتطوير المفردات والاستماع والمحادثة.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagDaily">يومي</span>
+                <span class="tag" data-t="tagPractice">تطبيق</span>
+                <span class="tag" data-t="tagStep">خطوة بخطوة</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-language"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="learnNow">تعلّم الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Documentaries -->
+    <section aria-labelledby="docs">
+      <div class="section-head">
+        <i class="fa-solid fa-globe" aria-hidden="true"></i>
+        <h2 id="docs" data-t="docsTitle">وثائقيات ومعرفة 🌍</h2>
+      </div>
+
+      <div class="grid">
+        <a class="card" style="--i:0" href="https://t.me/+3hNQum311StjMDFk" target="_blank" rel="noopener noreferrer"
+           aria-label="قسم الوثائقيات على تليغرام" data-t-aria="docsAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="docsH">رحلة في الكون والمعرفة</h3>
+              <p class="meta" data-t="docsM">فضاء، تاريخ، علوم… محتوى ممتع يزيد ثقافتك بطريقة جميلة.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagScience">علوم</span>
+                <span class="tag" data-t="tagHistory">تاريخ</span>
+                <span class="tag" data-t="tagSpace">فضاء</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-earth-africa"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="watchNow">شاهد الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Games -->
+    <section aria-labelledby="games">
+      <div class="section-head">
+        <i class="fa-solid fa-gamepad" aria-hidden="true"></i>
+        <h2 id="games" data-t="gamesTitle">ألعاب 🎮</h2>
+      </div>
+
+      <div class="grid">
+        <a class="card" style="--i:0" href="https://t.me/MgaqfpjW8jdiZjE0" target="_blank" rel="noopener noreferrer"
+           aria-label="قسم الألعاب على تليغرام" data-t-aria="gamesAria">
+          <div class="cardTop">
+            <div>
+              <h3 data-t="gamesH">ألعاب وتحميلات</h3>
+              <p class="meta" data-t="gamesM">أخبار، إصدارات، وروابط تحميل… كل شيء مرتب لعشاق الجيمينج.</p>
+              <div class="tags">
+                <span class="tag" data-t="tagNews">أخبار</span>
+                <span class="tag" data-t="tagReleases">إصدارات</span>
+                <span class="tag" data-t="tagGaming">Gaming</span>
+              </div>
+            </div>
+            <div class="cardIcon" aria-hidden="true"><i class="fa-solid fa-rocket"></i></div>
+          </div>
+          <div class="cardAction">
+            <span class="hint"><i class="fa-brands fa-telegram"></i><span data-t="openOnTG">فتح على تليغرام</span></span>
+            <span class="go"><span data-t="watchNow">شاهد الآن</span> <i class="fa-solid fa-arrow-left-long" aria-hidden="true"></i></span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Telegram contact floating button -->
+  <a class="fab" href="https://t.me/It24live" target="_blank" rel="noopener noreferrer"
+     aria-label="تواصل على تليغرام" data-t-aria="fabAria">
     <i class="fa-brands fa-telegram"></i>
-  </a>  <footer>
-    © 2025 HM‑CHANNELS. جميع الحقوق محفوظة.
+  </a>
+<!-- ================== PART 3/3 ================== -->
+
+  <footer>
+    <div>© <span id="year"></span> HM-CHANNELS. <span data-t="rights">جميع الحقوق محفوظة.</span></div>
+    <div class="note" data-t="footerNote">
+      ملاحظة: جميع الروابط تقود إلى تليغرام. اختر القسم الذي يناسبك واستمتع بتجربة مشاهدة مرتبة وأنيقة.
+    </div>
   </footer>
+
+  <script>
+    // Auto year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Simple i18n dictionary
+    const i18n = {
+      ar: {
+        skip: "تخطي إلى المحتوى",
+        brandSmall: "منصة مشاهدة عبر تليغرام",
+
+        navFilms: "أفلام",
+        navSeries: "مسلسلات",
+        navAnime: "أنمي",
+        navCourses: "كورسات",
+        navDocs: "وثائقيات",
+        navGames: "ألعاب",
+
+        heroTitle: "📺 HM-CHANNELS",
+        heroSub: "مشاهدة مختارات قوية عبر تليغرام: أفلام ومسلسلات وأنمي ووثائقيات وكورسات وألعاب… وكل شيء مرتب وبجودة ممتازة.",
+        ctaMain: "تابع القناة الرئيسية",
+        ctaBrowse: "استعراض الأقسام",
+        ctaMainAria: "تابع القناة الرئيسية على تليغرام",
+
+        chip1: "مختارات مميزة",
+        chip2: "تحديثات مستمرة",
+        chip3: "روابط واضحة وسريعة",
+        chip4: "تجربة أنيقة",
+
+        filmsTitle: "أفلام 🎬",
+        filmsH: "أفلام مختارة بعناية",
+        filmsM: "أكشن، دراما، خيال علمي… مع جودة ممتازة وروابط مرتبة.",
+        filmsAria: "قسم الأفلام على تليغرام",
+
+        seriesTitle: "مسلسلات 📺",
+        seriesWorldH: "مسلسلات عالمية",
+        seriesWorldM: "موسم جديد؟ حلقة جديدة؟ كل شيء يوصل لك بسرعة وبترتيب.",
+        seriesWorldAria: "مسلسلات عالمية على تليغرام",
+        seriesArabH: "دراما عربية وأندلس",
+        seriesArabM: "نخبة من الأعمال العربية… اختيارات قوية ومحتوى ممتع.",
+        seriesArabAria: "دراما عربية وأندلس على تليغرام",
+        seriesMoroccoH: "مسلسلات مغربية",
+        seriesMoroccoM: "قصص قريبة من الواقع… بلمسة مغربية ممتعة.",
+        seriesMoroccoAria: "مسلسلات مغربية على تليغرام",
+
+        animeTitle: "أنمي 🍥",
+        animeH: "عناوين أنمي مختارة",
+        animeM: "كلاسيكيات + أعمال جديدة… وكل شيء منظم لتوصل بسرعة.",
+        animeAria: "قسم الأنمي على تليغرام",
+
+        coursesTitle: "كورسات 🎓",
+        coursesH: "كورسات متنوعة",
+        coursesM: "تعلّم مهارات عملية: تقنية، تصميم، إنتاجية… وأكثر.",
+        coursesAria: "كورسات متنوعة على تليغرام",
+        englishH: "لغة إنجليزية",
+        englishM: "مصادر عملية يومية لتطوير المفردات والاستماع والمحادثة.",
+        englishAria: "مصادر تعلم الإنجليزية على تليغرام",
+
+        docsTitle: "وثائقيات ومعرفة 🌍",
+        docsH: "رحلة في الكون والمعرفة",
+        docsM: "فضاء، تاريخ، علوم… محتوى ممتع يزيد ثقافتك بطريقة جميلة.",
+        docsAria: "قسم الوثائقيات على تليغرام",
+
+        gamesTitle: "ألعاب 🎮",
+        gamesH: "ألعاب وتحميلات",
+        gamesM: "أخبار، إصدارات، وروابط تحميل… كل شيء مرتب لعشاق الجيمينج.",
+        gamesAria: "قسم الألعاب على تليغرام",
+
+        // Buttons / labels
+        openOnTG: "فتح على تليغرام",
+        watchNow: "شاهد الآن",
+        browseNow: "تصفح الآن",
+        learnNow: "تعلّم الآن",
+
+        // Tags
+        tagHQ: "جودة عالية",
+        tagPicks: "مختارات",
+        tagFast: "وصول سريع",
+        tagNew: "أحدث",
+        tagOrder: "مرتب",
+        tagDaily: "تحديث",
+        tagArab: "عربي",
+        tagDrama: "دراما",
+        tagTop: "نخبة",
+        tagMorocco: "مغربي",
+        tagStories: "قصص",
+        tagReal: "واقعي",
+        tagClassic: "كلاسيك",
+        tagFun: "متعة",
+        tagLearn: "تعلّم",
+        tagSkills: "مهارات",
+        tagSources: "مصادر",
+        tagPractice: "تطبيق",
+        tagStep: "خطوة بخطوة",
+        tagScience: "علوم",
+        tagHistory: "تاريخ",
+        tagSpace: "فضاء",
+        tagNews: "أخبار",
+        tagReleases: "إصدارات",
+        tagGaming: "Gaming",
+
+        rights: "جميع الحقوق محفوظة.",
+        footerNote: "ملاحظة: جميع الروابط تقود إلى تليغرام. اختر القسم الذي يناسبك واستمتع بتجربة مشاهدة مرتبة وأنيقة.",
+        fabAria: "تواصل على تليغرام"
+      },
+
+      en: {
+        skip: "Skip to content",
+        brandSmall: "Telegram viewing hub",
+
+        navFilms: "Films",
+        navSeries: "Series",
+        navAnime: "Anime",
+        navCourses: "Courses",
+        navDocs: "Docs",
+        navGames: "Games",
+
+        heroTitle: "📺 HM-CHANNELS",
+        heroSub: "Curated Telegram hubs: films, series, anime, documentaries, courses, games… all organized and easy to access.",
+        ctaMain: "Follow the main channel",
+        ctaBrowse: "Browse categories",
+        ctaMainAria: "Open main Telegram channel",
+
+        chip1: "Curated picks",
+        chip2: "Frequent updates",
+        chip3: "Fast & clear links",
+        chip4: "Premium experience",
+
+        filmsTitle: "Films 🎬",
+        filmsH: "Carefully curated films",
+        filmsM: "Action, drama, sci-fi… with neat organization and great quality.",
+        filmsAria: "Open films section on Telegram",
+
+        seriesTitle: "Series 📺",
+        seriesWorldH: "International series",
+        seriesWorldM: "New season? New episode? Everything delivered fast and organized.",
+        seriesWorldAria: "Open international series on Telegram",
+        seriesArabH: "Arabic & Andalus drama",
+        seriesArabM: "Top Arabic drama picks… enjoyable and well curated.",
+        seriesArabAria: "Open Arabic drama on Telegram",
+        seriesMoroccoH: "Moroccan series",
+        seriesMoroccoM: "Stories close to real life… with a Moroccan touch.",
+        seriesMoroccoAria: "Open Moroccan series on Telegram",
+
+        animeTitle: "Anime 🍥",
+        animeH: "Selected anime titles",
+        animeM: "Classics + new releases… organized for quick access.",
+        animeAria: "Open anime section on Telegram",
+
+        coursesTitle: "Courses 🎓",
+        coursesH: "Various courses",
+        coursesM: "Practical learning: tech, design, productivity… and more.",
+        coursesAria: "Open courses on Telegram",
+        englishH: "English",
+        englishM: "Daily practical resources for vocabulary, listening, and speaking.",
+        englishAria: "Open English resources on Telegram",
+
+        docsTitle: "Documentaries & Knowledge 🌍",
+        docsH: "A journey through knowledge",
+        docsM: "Space, history, science… enjoyable content that boosts your curiosity.",
+        docsAria: "Open documentaries on Telegram",
+
+        gamesTitle: "Games 🎮",
+        gamesH: "Games & downloads",
+        gamesM: "News, releases, and download links… organized for gamers.",
+        gamesAria: "Open games section on Telegram",
+
+        openOnTG: "Open on Telegram",
+        watchNow: "Watch now",
+        browseNow: "Browse now",
+        learnNow: "Learn now",
+
+        tagHQ: "HD",
+        tagPicks: "Picks",
+        tagFast: "Fast",
+        tagNew: "New",
+        tagOrder: "Organized",
+        tagDaily: "Updated",
+        tagArab: "Arabic",
+        tagDrama: "Drama",
+        tagTop: "Top",
+        tagMorocco: "Moroccan",
+        tagStories: "Stories",
+        tagReal: "Real-life",
+        tagClassic: "Classic",
+        tagFun: "Fun",
+        tagLearn: "Learn",
+        tagSkills: "Skills",
+        tagSources: "Sources",
+        tagPractice: "Practice",
+        tagStep: "Step-by-step",
+        tagScience: "Science",
+        tagHistory: "History",
+        tagSpace: "Space",
+        tagNews: "News",
+        tagReleases: "Releases",
+        tagGaming: "Gaming",
+
+        rights: "All rights reserved.",
+        footerNote: "Note: All links open Telegram. Pick a category and enjoy an organized viewing experience.",
+        fabAria: "Contact on Telegram"
+      }
+    };
+
+    function setLang(lang){
+      const dict = i18n[lang] || i18n.ar;
+
+      // Update html attributes
+      document.documentElement.lang = lang;
+      document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+
+      // Update label on toggle button
+      document.getElementById("langLabel").textContent = (lang === "ar") ? "English" : "العربية";
+
+      // Update text nodes
+      document.querySelectorAll("[data-t]").forEach(el=>{
+        const key = el.getAttribute("data-t");
+        if (dict[key] !== undefined) el.textContent = dict[key];
+      });
+
+      // Update aria-labels from keys
+      document.querySelectorAll("[data-t-aria]").forEach(el=>{
+        const key = el.getAttribute("data-t-aria");
+        if (dict[key] !== undefined) el.setAttribute("aria-label", dict[key]);
+      });
+
+      localStorage.setItem("hm_lang", lang);
+    }
+
+    // Init
+    const saved = localStorage.getItem("hm_lang");
+    setLang(saved || "ar");
+
+    // Toggle
+    document.getElementById("langToggle").addEventListener("click", ()=>{
+      const current = document.documentElement.lang || "ar";
+      setLang(current === "ar" ? "en" : "ar");
+    });
+  </script>
 </body>
 </html>
