@@ -98,7 +98,6 @@
     }
     .skip:focus{transform:translateY(0)}
 
-    /* Topbar */
     .topbar{
       position:sticky;
       top:0;
@@ -183,7 +182,6 @@
       background:rgba(255,255,255,.05);
     }
 
-    /* Hero */
     .hero{
       position:relative;
       padding:52px 0 20px;
@@ -286,7 +284,6 @@
       font-size:.95rem;
     }
 
-    /* Sections */
     section{padding:26px 0}
     .section-title{
       display:flex;
@@ -345,7 +342,6 @@
       font-weight:700;
     }
 
-    /* Cards */
     .grid{
       display:grid;
       gap:18px;
@@ -491,7 +487,6 @@
       filter:brightness(1.04);
     }
 
-    /* Featured cards */
     .featured-grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
@@ -534,7 +529,6 @@
       margin-top:18px;
     }
 
-    /* Footer */
     footer{
       padding:38px 0 60px;
     }
@@ -565,7 +559,6 @@
       font-weight:800;
     }
 
-    /* FAB */
     .fab{
       position:fixed;
       left:18px;
@@ -583,7 +576,6 @@
     }
     .fab:hover{transform:translateY(-4px) scale(1.03)}
 
-    /* Responsive */
     @media (max-width: 980px){
       .hero-grid,
       .featured-grid{
@@ -769,7 +761,7 @@
           </div>
         </div>
 
-        <div class="feature-card">
+         <div class="feature-card">
           <h3>💬 مجموعة VIP LEECH</h3>
           <p>
             المكان المخصص للنقاش والاستفسارات والطلبات. إذا كنت تبحث عن فيلم أو مسلسل معيّن، فهذا هو المكان الصحيح.
@@ -985,7 +977,6 @@
       observer.observe(card);
     });
 
-    // تأثير خفيف على شريط الأعلى عند النزول
     const topbar = document.querySelector('.topbar');
     window.addEventListener('scroll', ()=>{
       if(window.scrollY > 18){
